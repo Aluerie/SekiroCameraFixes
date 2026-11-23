@@ -1,0 +1,23 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Install into ME3 profile",
+            "detail": "Build the release DLL and copy it into the sekiro-default ME3 profile",
+            "type": "process",
+            "command": "powershell",
+            "args": ["-ExecutionPolicy", "Bypass", "-File", "${workspaceFolder}/scripts/install.ps1"],
+            "group": { "kind": "build", "isDefault": true },
+            "problemMatcher": ["$rustc"]
+        },
+        {
+            "label": "Package release folder",
+            "detail": "Build dist/SekiroCameraFixes and its zip",
+            "type": "process",
+            "command": "powershell",
+            "args": ["-ExecutionPolicy", "Bypass", "-File", "${workspaceFolder}/scripts/package.ps1"],
+            "group": "build",
+            "problemMatcher": ["$rustc"]
+        }
+    ]
+}
