@@ -10,6 +10,13 @@ and nothing else:
 
 ## 📦 Install
 
+The quickest way: download `SekiroCameraFixes-v<version>.zip` from the
+[latest release](https://github.com/Aluerie/SekiroCameraFixes/releases/latest), unzip it anywhere, and double-click
+`SekiroCameraFixes.me3` (or run `me3 launch -p SekiroCameraFixes.me3` in that folder). The zip holds the DLL and a
+ready-made profile.
+
+To set it up by hand, or add it to a profile you already have:
+
 1. Build it (`cargo build --release`) or take `sekiro_camera_fixes.dll` from a release.
 2. Put the DLL next to a `.me3` profile and add it as a native:
 
@@ -86,6 +93,23 @@ Differences from the original tool, none of which change what the game does:
 cargo test            # pattern/config/jump encoding tests, plus a test that runs a real cave
 cargo build --release # target/release/sekiro_camera_fixes.dll
 ```
+
+To get the ready-to-go folder that players download, run `scripts\package.ps1`. It builds the DLL and creates
+`dist\SekiroCameraFixes\` (DLL, `.me3` profile, README) and `dist\SekiroCameraFixes-v<version>.zip`.
+
+### 🤖 CI
+
+[.github/workflows/ci.yml](.github/workflows/ci.yml) runs on every push and pull request: `cargo fmt --check`,
+`cargo clippy` with warnings as errors, `cargo test`, then the packaging script. The packaged folder can be downloaded
+from the run's "Artifacts" section.
+
+### 🚀 Releasing
+
+1. Bump `version` in `Cargo.toml` and run `cargo build` so `Cargo.lock` picks it up. Commit both.
+2. Tag the commit `v<version>`, e.g. `v0.2.0`, and push the tag.
+
+CI then checks that the tag matches `Cargo.toml`, builds and tests everything, and publishes a GitHub Release with the
+zip attached and release notes generated from the commits since the last tag.
 
 ## 🙏 Credits
 
